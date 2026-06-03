@@ -1,0 +1,2507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="BRANDOS AI™ — AI-Powered Career Branding Operating System. Build the brand that gets you hired.">
+<meta property="og:title" content="BRANDOS AI™ — Build The Brand That Gets You Hired">
+<meta property="og:description" content="An AI-powered platform that transforms your skills, projects, and experience into a complete personal brand identity — resume, LinkedIn, portfolio, content strategy, and growth roadmap.">
+<meta property="og:type" content="website">
+<title>BRANDOS AI™ — AI-Powered Career Branding OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+:root {
+  --bg:       #080810;
+  --bg-2:     #0E0E1A;
+  --bg-3:     #13131F;
+  --bg-4:     #1A1A2E;
+  --line:     rgba(255,255,255,0.06);
+  --line-2:   rgba(255,255,255,0.12);
+  --text:     #F0EEF8;
+  --text-2:   rgba(240,238,248,0.6);
+  --text-3:   rgba(240,238,248,0.35);
+  --gold:     #E8C56A;
+  --gold-2:   #F5DCA0;
+  --gold-dim: rgba(232,197,106,0.12);
+  --blue:     #4F6EF7;
+  --blue-2:   #7B93FF;
+  --blue-dim: rgba(79,110,247,0.1);
+  --teal:     #2DD4A0;
+  --teal-dim: rgba(45,212,160,0.1);
+  --coral:    #F0614A;
+  --r:        10px;
+  --r-lg:     18px;
+  --r-xl:     28px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ═══════════════════════════════════════════
+   CUSTOM CURSOR
+═══════════════════════════════════════════ */
+#cursor {
+  width: 10px; height: 10px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s;
+  transform: translate(-50%, -50%);
+}
+#cursor-ring {
+  width: 36px; height: 36px;
+  border: 1.5px solid rgba(232,197,106,0.4);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s;
+}
+body:has(a:hover) #cursor, body:has(button:hover) #cursor { transform: translate(-50%, -50%) scale(2.5); background: var(--gold); }
+body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56px; height: 56px; opacity: 0.5; }
+
+/* ═══════════════════════════════════════════
+   GRAIN OVERLAY
+═══════════════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.5;
+}
+
+/* ═══════════════════════════════════════════
+   TYPOGRAPHY
+═══════════════════════════════════════════ */
+h1, h2, h3, h4 { font-family: 'Syne', sans-serif; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; }
+.mono { font-family: 'DM Mono', monospace; }
+
+.eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px; height: 1px;
+  background: var(--gold);
+}
+
+/* ═══════════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════════ */
+.container { max-width: 1120px; margin: 0 auto; padding: 0 40px; }
+section { position: relative; }
+
+/* ═══════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.3s, backdrop-filter 0.3s, border-color 0.3s;
+  border-bottom: 1px solid transparent;
+}
+nav.scrolled {
+  background: rgba(8,8,16,0.85);
+  backdrop-filter: blur(20px);
+  border-color: var(--line);
+}
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-logo-mark {
+  width: 32px; height: 32px;
+  background: var(--gold);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+  color: #000;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--text-2);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  background: var(--gold);
+  color: #000;
+  padding: 10px 22px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 40px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Grid lines background */
+#hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 20%, black 40%, transparent 100%);
+}
+
+/* Glow orbs */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+.hero-orb-1 {
+  width: 600px; height: 600px;
+  background: rgba(79,110,247,0.15);
+  top: -200px; right: -100px;
+}
+.hero-orb-2 {
+  width: 400px; height: 400px;
+  background: rgba(232,197,106,0.1);
+  bottom: 0; left: -100px;
+}
+.hero-orb-3 {
+  width: 300px; height: 300px;
+  background: rgba(45,212,160,0.08);
+  top: 30%; right: 10%;
+}
+
+.hero-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gold-dim);
+  border: 1px solid rgba(232,197,106,0.25);
+  padding: 8px 16px 8px 10px;
+  border-radius: 100px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  margin-bottom: 40px;
+  animation: fadeUp 0.6s ease both;
+}
+.hero-badge-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+
+.hero-title {
+  font-size: clamp(56px, 8.5vw, 110px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+  margin-bottom: 32px;
+  animation: fadeUp 0.7s 0.1s ease both;
+}
+.hero-title .line-2 { color: var(--gold); }
+.hero-title .line-3 {
+  -webkit-text-stroke: 1.5px rgba(240,238,248,0.3);
+  color: transparent;
+}
+
+.hero-sub {
+  font-size: 19px;
+  color: var(--text-2);
+  max-width: 560px;
+  line-height: 1.65;
+  margin-bottom: 48px;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.7s 0.3s ease both;
+  margin-bottom: 80px;
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: #000;
+  padding: 16px 32px;
+  border-radius: 100px;
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s;
+  border: none;
+  cursor: none;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(232,197,106,0.3); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-2);
+  padding: 16px 28px;
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--line-2);
+  transition: all 0.25s;
+  cursor: none;
+}
+.btn-secondary:hover { color: var(--text); border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.04); }
+
+.btn-arrow {
+  width: 18px; height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  align-items: center;
+  animation: fadeUp 0.7s 0.4s ease both;
+  flex-wrap: wrap;
+}
+.hero-stat-item { text-align: left; }
+.hero-stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.hero-stat-num span { color: var(--gold); }
+.hero-stat-label { font-size: 13px; color: var(--text-3); }
+.hero-stat-divider { width: 1px; height: 40px; background: var(--line-2); }
+
+/* Floating UI preview */
+.hero-preview {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 420px;
+  animation: fadeUp 0.8s 0.5s ease both;
+}
+.preview-card {
+  background: var(--bg-3);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-xl);
+  padding: 24px;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+}
+.preview-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.preview-dots { display: flex; gap: 6px; }
+.preview-dot { width: 10px; height: 10px; border-radius: 50%; }
+.preview-dot.r { background: #F06060; }
+.preview-dot.y { background: #F5C842; }
+.preview-dot.g { background: #4FC66A; }
+.preview-title-bar { flex: 1; background: var(--bg-4); border-radius: 6px; height: 20px; }
+
+.preview-score-ring {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.score-svg { width: 100px; height: 100px; }
+.score-circle-bg { fill: none; stroke: var(--bg-4); stroke-width: 8; }
+.score-circle { fill: none; stroke: var(--gold); stroke-width: 8; stroke-linecap: round; stroke-dasharray: 251; stroke-dashoffset: 50; transform: rotate(-90deg); transform-origin: center; animation: scoreAnim 1.5s 0.8s ease both; }
+@keyframes scoreAnim { from { stroke-dashoffset: 251; } to { stroke-dashoffset: 50; } }
+.score-text-main { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; fill: var(--text); }
+.score-text-sub { font-size: 9px; fill: var(--text-3); font-family: 'DM Mono', monospace; }
+
+.preview-modules {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.preview-module {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-4);
+  border-radius: var(--r);
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+}
+.preview-module-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+.preview-module-icon.blue { background: var(--blue-dim); }
+.preview-module-icon.gold { background: var(--gold-dim); }
+.preview-module-icon.teal { background: var(--teal-dim); }
+.preview-module-text { flex: 1; }
+.preview-module-name { font-size: 12px; font-weight: 600; color: var(--text); font-family: 'Syne', sans-serif; }
+.preview-module-status { font-size: 10px; color: var(--text-3); font-family: 'DM Mono', monospace; }
+.preview-module-bar { height: 3px; background: var(--bg); border-radius: 100px; width: 60px; overflow: hidden; }
+.preview-module-fill { height: 100%; border-radius: 100px; background: var(--gold); animation: barFill 1.2s ease both; }
+.pm1 { width: 92%; animation-delay: 0.9s; }
+.pm2 { width: 78%; animation-delay: 1.0s; }
+.pm3 { width: 85%; animation-delay: 1.1s; }
+@keyframes barFill { from { width: 0 } }
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+
+/* ═══════════════════════════════════════════
+   MARQUEE BAND
+═══════════════════════════════════════════ */
+.marquee-band {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+  overflow: hidden;
+  background: var(--bg-2);
+  position: relative;
+}
+.marquee-track {
+  display: flex;
+  gap: 0;
+  animation: marquee 30s linear infinite;
+  width: max-content;
+}
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 40px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+.marquee-item span { color: var(--gold); }
+.marquee-sep { width: 4px; height: 4px; border-radius: 50%; background: var(--line-2); }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* ═══════════════════════════════════════════
+   PROBLEM SECTION
+═══════════════════════════════════════════ */
+#problems {
+  padding: 120px 0;
+  background: var(--bg);
+}
+.problems-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-top: 64px;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.problem-cell {
+  background: var(--bg-2);
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+.problem-cell:hover { background: var(--bg-3); }
+.problem-cell::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.problem-cell:hover::after { opacity: 1; }
+.problem-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+  display: block;
+}
+.problem-cell h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.problem-cell p {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+.problem-tag {
+  display: inline-block;
+  margin-top: 16px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--coral);
+  background: rgba(240,97,74,0.1);
+  padding: 4px 12px;
+  border-radius: 100px;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════
+   FRAMEWORK SECTION
+═══════════════════════════════════════════ */
+#framework {
+  padding: 120px 0;
+  background: var(--bg-2);
+  overflow: hidden;
+  position: relative;
+}
+#framework::before {
+  content: '';
+  position: absolute;
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(232,197,106,0.06) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+}
+
+.framework-steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  margin-top: 64px;
+  position: relative;
+}
+.framework-steps::before {
+  content: '';
+  position: absolute;
+  top: 56px;
+  left: calc(10% + 28px);
+  right: calc(10% + 28px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), var(--teal), var(--blue), transparent);
+  opacity: 0.4;
+}
+.fw-step {
+  text-align: center;
+  padding: 0 20px;
+  position: relative;
+}
+.fw-step-circle {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line-2);
+  background: var(--bg-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--gold);
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s;
+}
+.fw-step:hover .fw-step-circle {
+  background: var(--gold);
+  color: #000;
+  border-color: var(--gold);
+  transform: scale(1.1);
+  box-shadow: 0 0 40px rgba(232,197,106,0.3);
+}
+.fw-step-letter {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.fw-step h3 {
+  font-size: 17px;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.fw-step p {
+  font-size: 13px;
+  color: var(--text-3);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════
+   MODULES SECTION
+═══════════════════════════════════════════ */
+#modules {
+  padding: 120px 0;
+  background: var(--bg);
+}
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 64px;
+}
+.module-card {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 36px 32px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  group: true;
+}
+.module-card:hover {
+  border-color: var(--line-2);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.module-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(232,197,106,0.04) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.module-card:hover::before { opacity: 1; }
+.module-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.module-icon {
+  width: 48px; height: 48px;
+  border-radius: var(--r);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.module-icon.i1 { background: rgba(79,110,247,0.12); }
+.module-icon.i2 { background: rgba(232,197,106,0.12); }
+.module-icon.i3 { background: rgba(45,212,160,0.12); }
+.module-icon.i4 { background: rgba(240,97,74,0.12); }
+.module-icon.i5 { background: rgba(123,147,255,0.12); }
+.module-icon.i6 { background: rgba(232,197,106,0.08); }
+.module-card h3 {
+  font-size: 19px;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.module-card p {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.65;
+  margin-bottom: 24px;
+}
+.module-outputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.module-output {
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  color: var(--text-3);
+  padding: 5px 12px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+}
+.module-card:hover .module-output { border-color: var(--line-2); color: var(--text-2); }
+
+/* ═══════════════════════════════════════════
+   FEATURES / COMPARISON
+═══════════════════════════════════════════ */
+#compare {
+  padding: 120px 0;
+  background: var(--bg-2);
+}
+.compare-table {
+  margin-top: 64px;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.compare-head {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 0;
+  background: var(--bg-3);
+  border-bottom: 1px solid var(--line);
+}
+.compare-col-head {
+  padding: 20px 24px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Syne', sans-serif;
+  color: var(--text-2);
+  border-right: 1px solid var(--line);
+  text-align: center;
+}
+.compare-col-head:first-child { text-align: left; }
+.compare-col-head.highlight {
+  background: var(--gold-dim);
+  color: var(--gold);
+  border-color: rgba(232,197,106,0.2);
+}
+.compare-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  border-bottom: 1px solid var(--line);
+  transition: background 0.2s;
+}
+.compare-row:last-child { border-bottom: none; }
+.compare-row:hover { background: rgba(255,255,255,0.015); }
+.compare-cell {
+  padding: 18px 24px;
+  font-size: 14px;
+  color: var(--text-2);
+  border-right: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.compare-cell:first-child { justify-content: flex-start; color: var(--text); font-weight: 500; }
+.compare-cell.highlight { background: rgba(232,197,106,0.04); border-color: rgba(232,197,106,0.1); }
+.check { color: var(--teal); font-size: 16px; }
+.cross { color: var(--coral); font-size: 16px; opacity: 0.5; }
+.partial { color: var(--gold); font-size: 14px; }
+
+/* ═══════════════════════════════════════════
+   PERSONAS
+═══════════════════════════════════════════ */
+#personas {
+  padding: 120px 0;
+  background: var(--bg);
+}
+.personas-scroll {
+  display: grid;
+  grid-template-columns: repeat(5, 240px);
+  gap: 16px;
+  margin-top: 64px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-2) transparent;
+}
+.persona-card {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 32px 24px;
+  flex-shrink: 0;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.persona-card:hover { border-color: var(--line-2); transform: translateY(-4px); }
+.persona-avatar {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.pa1 { background: rgba(79,110,247,0.15); color: var(--blue-2); }
+.pa2 { background: rgba(232,197,106,0.15); color: var(--gold); }
+.pa3 { background: rgba(45,212,160,0.15); color: var(--teal); }
+.pa4 { background: rgba(240,97,74,0.15); color: var(--coral); }
+.pa5 { background: rgba(255,255,255,0.08); color: var(--text); }
+.persona-card h3 { font-size: 16px; color: var(--text); margin-bottom: 4px; }
+.persona-card .persona-role { font-size: 12px; color: var(--text-3); font-family: 'DM Mono', monospace; margin-bottom: 20px; }
+.persona-pain {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.6;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.persona-pain strong { color: var(--gold); font-weight: 600; }
+
+/* ═══════════════════════════════════════════
+   CASE STUDIES
+═══════════════════════════════════════════ */
+#cases {
+  padding: 120px 0;
+  background: var(--bg-2);
+}
+.cases-tabs {
+  display: flex;
+  gap: 8px;
+  margin-top: 48px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+.case-tab {
+  padding: 10px 22px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--text-3);
+  cursor: none;
+  transition: all 0.2s;
+  font-family: 'Instrument Sans', sans-serif;
+}
+.case-tab.active, .case-tab:hover {
+  background: var(--gold-dim);
+  border-color: rgba(232,197,106,0.3);
+  color: var(--gold);
+}
+.case-content { display: none; }
+.case-content.active { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.case-panel {
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 32px;
+}
+.case-panel-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 12px;
+}
+.case-panel h4 { font-size: 18px; color: var(--text); margin-bottom: 16px; }
+.case-stat-row {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+.case-stat { text-align: center; }
+.case-stat-num { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; color: var(--gold); line-height: 1; }
+.case-stat-lbl { font-size: 11px; color: var(--text-3); font-family: 'DM Mono', monospace; margin-top: 4px; }
+.case-output {
+  background: var(--bg-4);
+  border-left: 3px solid var(--gold);
+  padding: 14px 18px;
+  border-radius: 0 var(--r) var(--r) 0;
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.65;
+  font-style: italic;
+  margin-bottom: 12px;
+}
+.case-list { list-style: none; }
+.case-list li {
+  font-size: 14px;
+  color: var(--text-2);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  gap: 10px;
+}
+.case-list li::before { content: '→'; color: var(--teal); flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════
+   GTM & ROADMAP
+═══════════════════════════════════════════ */
+#gtm {
+  padding: 120px 0;
+  background: var(--bg);
+}
+.gtm-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 64px;
+}
+.roadmap-line {
+  position: relative;
+  padding-left: 40px;
+}
+.roadmap-line::before {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 12px;
+  bottom: 12px;
+  width: 1.5px;
+  background: linear-gradient(to bottom, var(--gold), var(--teal), var(--blue));
+}
+.roadmap-item {
+  position: relative;
+  margin-bottom: 36px;
+}
+.roadmap-item:last-child { margin-bottom: 0; }
+.roadmap-node {
+  position: absolute;
+  left: -40px;
+  top: 4px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--line-2);
+  background: var(--bg);
+  transition: all 0.3s;
+  z-index: 1;
+}
+.roadmap-node.gold { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 16px rgba(232,197,106,0.4); }
+.roadmap-node.teal { background: var(--teal); border-color: var(--teal); }
+.roadmap-node.blue { background: var(--blue); border-color: var(--blue); }
+.roadmap-phase {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+.roadmap-item h4 { font-size: 16px; color: var(--text); margin-bottom: 8px; }
+.roadmap-item p { font-size: 14px; color: var(--text-2); line-height: 1.6; }
+
+.channels-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.channel-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px 20px;
+  transition: border-color 0.2s;
+}
+.channel-item:hover { border-color: var(--line-2); }
+.channel-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.channel-text h4 { font-size: 14px; color: var(--text); margin-bottom: 2px; }
+.channel-text p { font-size: 13px; color: var(--text-3); }
+.channel-badge {
+  margin-left: auto;
+  background: var(--teal-dim);
+  color: var(--teal);
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════
+   KPI / METRICS
+═══════════════════════════════════════════ */
+#kpis {
+  padding: 120px 0;
+  background: var(--bg-2);
+}
+.kpi-dashboard {
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  margin-top: 64px;
+}
+.kpi-dash-header {
+  padding: 20px 28px;
+  background: var(--bg-4);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.kpi-dash-title { font-size: 14px; font-weight: 600; font-family: 'Syne', sans-serif; color: var(--text); }
+.kpi-dash-period {
+  background: var(--gold-dim);
+  border: 1px solid rgba(232,197,106,0.2);
+  color: var(--gold);
+  padding: 5px 14px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+}
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--line);
+}
+.kpi-card {
+  background: var(--bg-3);
+  padding: 28px 24px;
+  transition: background 0.2s;
+}
+.kpi-card:hover { background: var(--bg-4); }
+.kpi-card-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 12px;
+}
+.kpi-card-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.kpi-card-num.blue { color: var(--blue-2); }
+.kpi-card-num.gold { color: var(--gold); }
+.kpi-card-num.teal { color: var(--teal); }
+.kpi-card-num.coral { color: var(--coral); }
+.kpi-change { font-size: 12px; font-family: 'DM Mono', monospace; }
+.kpi-change.up { color: var(--teal); }
+.kpi-change.neutral { color: var(--text-3); }
+
+/* ═══════════════════════════════════════════
+   TECH STACK
+═══════════════════════════════════════════ */
+#tech {
+  padding: 120px 0;
+  background: var(--bg);
+}
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 64px;
+}
+.tech-card {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  transition: border-color 0.3s;
+}
+.tech-card:hover { border-color: var(--line-2); }
+.tech-logo {
+  width: 48px; height: 48px;
+  border-radius: var(--r);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 20px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+}
+.tl1 { background: #1A1A1A; border: 1px solid #333; color: #fff; }
+.tl2 { background: #10A37F15; color: #10A37F; border: 1px solid rgba(16,163,127,0.2); }
+.tl3 { background: rgba(66,133,244,0.1); color: #4285F4; border: 1px solid rgba(66,133,244,0.2); }
+.tl4 { background: rgba(32,78,130,0.15); color: #5FAAD9; border: 1px solid rgba(32,78,130,0.2); }
+.tl5 { background: rgba(0,194,168,0.1); color: #00C2A8; border: 1px solid rgba(0,194,168,0.2); }
+.tl6 { background: rgba(255,255,255,0.05); color: var(--text-2); border: 1px solid var(--line); }
+.tech-card h3 { font-size: 17px; color: var(--text); margin-bottom: 8px; }
+.tech-card .tech-role { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 12px; }
+.tech-card p { font-size: 14px; color: var(--text-2); line-height: 1.6; }
+
+/* ═══════════════════════════════════════════
+   PRICING
+═══════════════════════════════════════════ */
+#pricing {
+  padding: 120px 0;
+  background: var(--bg-2);
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 64px;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.pricing-card {
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  padding: 40px 36px;
+  position: relative;
+  transition: transform 0.3s;
+}
+.pricing-card.featured {
+  border-color: rgba(232,197,106,0.4);
+  background: var(--bg-4);
+}
+.pricing-card.featured::before {
+  content: 'Most Popular';
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold);
+  color: #000;
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 16px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+.pricing-card:hover { transform: translateY(-4px); }
+.pricing-tier {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 16px;
+}
+.pricing-price {
+  font-family: 'Syne', sans-serif;
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.pricing-price span { font-size: 18px; font-weight: 500; color: var(--text-3); }
+.pricing-period { font-size: 13px; color: var(--text-3); margin-bottom: 32px; }
+.pricing-features { list-style: none; margin-bottom: 36px; }
+.pricing-features li {
+  font-size: 14px;
+  color: var(--text-2);
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.pricing-features li::before { content: '✓'; color: var(--teal); flex-shrink: 0; font-size: 13px; }
+.pricing-features li.na { color: var(--text-3); }
+.pricing-features li.na::before { content: '—'; color: var(--text-3); }
+.pricing-btn {
+  width: 100%;
+  padding: 14px 24px;
+  border-radius: 100px;
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  cursor: none;
+  border: none;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: block;
+}
+.pricing-btn.outline {
+  background: transparent;
+  border: 1px solid var(--line-2);
+  color: var(--text-2);
+}
+.pricing-btn.outline:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+.pricing-btn.solid {
+  background: var(--gold);
+  color: #000;
+}
+.pricing-btn.solid:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* ═══════════════════════════════════════════
+   SWOT
+═══════════════════════════════════════════ */
+#swot {
+  padding: 120px 0;
+  background: var(--bg);
+}
+.swot-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 64px;
+}
+.swot-card {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 36px;
+}
+.swot-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.swot-letter {
+  width: 44px; height: 44px;
+  border-radius: var(--r);
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sl-s { background: rgba(45,212,160,0.12); color: var(--teal); }
+.sl-w { background: rgba(240,97,74,0.12); color: var(--coral); }
+.sl-o { background: rgba(79,110,247,0.12); color: var(--blue-2); }
+.sl-t { background: rgba(232,197,106,0.12); color: var(--gold); }
+.swot-head h3 { font-size: 18px; color: var(--text); }
+.swot-list { list-style: none; }
+.swot-list li {
+  font-size: 14px;
+  color: var(--text-2);
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  gap: 10px;
+}
+.swot-list li::before { content: '·'; color: var(--text-3); font-size: 18px; line-height: 1; flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════
+   ABOUT / CREATOR
+═══════════════════════════════════════════ */
+#creator {
+  padding: 120px 0;
+  background: var(--bg-2);
+}
+.creator-inner {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.creator-card {
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  padding: 40px;
+  text-align: center;
+}
+.creator-avatar {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  color: #000;
+  margin: 0 auto 20px;
+  border: 4px solid var(--bg);
+  box-shadow: 0 0 0 2px var(--gold);
+}
+.creator-name { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+.creator-role { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 24px; }
+.creator-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 28px; }
+.creator-tag {
+  background: var(--bg-4);
+  border: 1px solid var(--line);
+  color: var(--text-3);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+}
+.creator-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.creator-link {
+  padding: 10px 20px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--line-2);
+  color: var(--text-2);
+  font-family: 'Syne', sans-serif;
+  transition: all 0.2s;
+}
+.creator-link:hover { border-color: var(--gold); color: var(--gold); }
+.creator-link.primary { background: var(--gold); color: #000; border-color: var(--gold); }
+.creator-link.primary:hover { opacity: 0.9; }
+
+.creator-content h2 { font-size: 38px; margin-bottom: 20px; }
+.creator-content p { font-size: 16px; color: var(--text-2); line-height: 1.75; margin-bottom: 20px; }
+.creator-quote {
+  border-left: 3px solid var(--gold);
+  padding-left: 24px;
+  margin: 32px 0;
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+/* ═══════════════════════════════════════════
+   CTA SECTION
+═══════════════════════════════════════════ */
+#cta {
+  padding: 160px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+}
+#cta::before {
+  content: '';
+  position: absolute;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(232,197,106,0.08) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+}
+.cta-inner { position: relative; z-index: 2; }
+.cta-inner h2 {
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: 24px;
+  letter-spacing: -0.03em;
+}
+.cta-inner h2 span { color: var(--gold); }
+.cta-inner p {
+  font-size: 18px;
+  color: var(--text-2);
+  max-width: 500px;
+  margin: 0 auto 48px;
+}
+.cta-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer {
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
+  padding: 60px 40px;
+}
+.footer-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: center;
+}
+.footer-brand h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.footer-brand p { font-size: 14px; color: var(--text-3); }
+.footer-links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: flex-end; }
+.footer-links a {
+  font-size: 13px;
+  color: var(--text-3);
+  text-decoration: none;
+  transition: color 0.2s;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.05em;
+}
+.footer-links a:hover { color: var(--text); }
+.footer-bottom {
+  max-width: 1120px;
+  margin: 32px auto 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-bottom p { font-size: 12px; color: var(--text-3); font-family: 'DM Mono', monospace; }
+.footer-bottom span { color: var(--gold); }
+
+/* ═══════════════════════════════════════════
+   SECTION HEADER SHARED
+═══════════════════════════════════════════ */
+.section-header { max-width: 640px; }
+.section-header h2 {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+.section-header p {
+  font-size: 17px;
+  color: var(--text-2);
+  line-height: 1.65;
+}
+.section-header h2 span { color: var(--gold); }
+
+/* ═══════════════════════════════════════════
+   SCROLL ANIMATIONS
+═══════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .hero-preview { display: none; }
+  .hero-title { font-size: clamp(48px, 8vw, 80px); }
+  .modules-grid { grid-template-columns: 1fr 1fr; }
+  .creator-inner { grid-template-columns: 1fr; gap: 48px; }
+  .hero-stats { gap: 32px; }
+}
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; }
+  .nav-links { display: none; }
+  .container { padding: 0 20px; }
+  #hero { padding: 100px 20px 60px; }
+  .hero-title { font-size: 44px; }
+  .problems-grid { grid-template-columns: 1fr; }
+  .framework-steps { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .framework-steps::before { display: none; }
+  .modules-grid { grid-template-columns: 1fr; }
+  .compare-head, .compare-row { grid-template-columns: 2fr 1fr 1fr; }
+  .compare-head .compare-col-head:nth-child(4),
+  .compare-head .compare-col-head:nth-child(5),
+  .compare-row .compare-cell:nth-child(4),
+  .compare-row .compare-cell:nth-child(5) { display: none; }
+  .gtm-grid { grid-template-columns: 1fr; }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .tech-grid { grid-template-columns: 1fr 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+  .swot-grid { grid-template-columns: 1fr; }
+  .case-content.active { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-links { justify-content: flex-start; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  #cursor, #cursor-ring { display: none; }
+  body { cursor: auto; }
+  a, button { cursor: pointer; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">B</div>
+    BRANDOS AI™
+  </a>
+  <ul class="nav-links">
+    <li><a href="#problems">Problem</a></li>
+    <li><a href="#framework">Framework</a></li>
+    <li><a href="#modules">Modules</a></li>
+    <li><a href="#personas">Users</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#creator">About</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Get Early Access →</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
+
+  <div class="hero-inner container">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      Now in beta — built by Prateek Maheshwari
+    </div>
+
+    <h1 class="hero-title">
+      <span class="line-1">Build the</span><br>
+      <span class="line-2">brand that</span><br>
+      <span class="line-3">gets you hired.</span>
+    </h1>
+
+    <p class="hero-sub">
+      BRANDOS AI™ transforms your skills, projects, and experience into a complete personal brand — career identity, ATS resume, LinkedIn rewrite, portfolio plan, content strategy, and 1-year growth roadmap. In under 45 minutes.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#cta" class="btn-primary">
+        Start for Free
+        <span class="btn-arrow">→</span>
+      </a>
+      <a href="#framework" class="btn-secondary">
+        See How It Works
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">50<span>M+</span></div>
+        <div class="hero-stat-label">Students underserved</div>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">7.4<span>s</span></div>
+        <div class="hero-stat-label">Avg. resume attention</div>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">6</div>
+        <div class="hero-stat-label">AI-powered modules</div>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">45<span>min</span></div>
+        <div class="hero-stat-label">To full brand package</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Preview Card -->
+  <div class="hero-preview">
+    <div class="preview-card">
+      <div class="preview-header">
+        <div class="preview-dots">
+          <div class="preview-dot r"></div>
+          <div class="preview-dot y"></div>
+          <div class="preview-dot g"></div>
+        </div>
+        <div class="preview-title-bar"></div>
+      </div>
+
+      <div class="preview-score-ring">
+        <svg class="score-svg" viewBox="0 0 100 100">
+          <circle class="score-circle-bg" cx="50" cy="50" r="40"/>
+          <circle class="score-circle" cx="50" cy="50" r="40"/>
+          <text class="score-text-main" x="50" y="46" text-anchor="middle" dominant-baseline="middle">92</text>
+          <text class="score-text-sub" x="50" y="60" text-anchor="middle">BRAND SCORE</text>
+        </svg>
+      </div>
+
+      <div class="preview-modules">
+        <div class="preview-module">
+          <div class="preview-module-icon blue">🧠</div>
+          <div class="preview-module-text">
+            <div class="preview-module-name">Career Identity</div>
+            <div class="preview-module-status">COMPLETE</div>
+          </div>
+          <div class="preview-module-bar"><div class="preview-module-fill pm1"></div></div>
+        </div>
+        <div class="preview-module">
+          <div class="preview-module-icon gold">📄</div>
+          <div class="preview-module-text">
+            <div class="preview-module-name">Resume Analyzer</div>
+            <div class="preview-module-status">SCORE: 86/100</div>
+          </div>
+          <div class="preview-module-bar"><div class="preview-module-fill pm2"></div></div>
+        </div>
+        <div class="preview-module">
+          <div class="preview-module-icon teal">🔗</div>
+          <div class="preview-module-text">
+            <div class="preview-module-name">LinkedIn Optimizer</div>
+            <div class="preview-module-status">IN PROGRESS</div>
+          </div>
+          <div class="preview-module-bar"><div class="preview-module-fill pm3"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-band">
+  <div class="marquee-track">
+    <!-- Repeated twice for seamless loop -->
+    <div class="marquee-item"><span>Career Identity</span><div class="marquee-sep"></div></div>
+    <div class="marquee-item"><span>Resume Optimization</span><div class="marquee-sep"></div></div>
+    <div class="marquee-item"><span>LinkedIn Strategy</span><div class="marquee-sep"></div></div>
+    <div class="marquee-item"><span>Portfolio Building</span><div class="marquee-sep"></div></div>
+    <div class="marquee-item"><span>Content Strategy</span><div class="marquee-sep"></div></div>
+    <div class="marquee-item"><span>Growth Roadmap</span><div class="marquee-sep"></div></div>
+    <div class="marquee-item"><span>ATS Scoring</span><div class="marquee-sep"></div></div>
+    <div class="marquee-item"><span>Brand Positioning</span><div class="marquee-sep"></div></div>
+    <div class="marquee-item"><span>Career Identity</span><div class="marquee-sep"></div></div>
+    <div class="marquee-item"><span>Resume Optimization</span><div class="marquee-sep"></div></div>
+    <div class="marquee-item"><span>LinkedIn Strategy</span><div class="marquee-sep"></div></div>
+    <div class="marquee-item"><span>Portfolio Building</span><div class="marquee-sep"></div></div>
+    <div class="marquee-item"><span>Content Strategy</span><div class="marquee-sep"></div></div>
+    <div class="marquee-item"><span>Growth Roadmap</span><div class="marquee-sep"></div></div>
+    <div class="marquee-item"><span>ATS Scoring</span><div class="marquee-sep"></div></div>
+    <div class="marquee-item"><span>Brand Positioning</span><div class="marquee-sep"></div></div>
+  </div>
+</div>
+
+<!-- PROBLEMS -->
+<section id="problems">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="eyebrow">The Problem</div>
+      <h2>The career gap no one is fixing</h2>
+      <p>Students graduate with skills but not stories. They know their worth — they just can't communicate it. That's not a talent problem. It's a branding problem.</p>
+    </div>
+
+    <div class="problems-grid reveal">
+      <div class="problem-cell">
+        <span class="problem-num">01 / 05</span>
+        <h3>The Identity Crisis — Students</h3>
+        <p>Students graduate with skills but no strategy. Without a defined personal brand, they become indistinguishable in a sea of identical resumes. Most have never been taught personal branding as a skill.</p>
+        <span class="problem-tag">50M+ affected</span>
+      </div>
+      <div class="problem-cell">
+        <span class="problem-num">02 / 05</span>
+        <h3>The First Job Paradox — Freshers</h3>
+        <p>No experience means no job, but no job means no experience. LinkedIn profiles are blank or poorly crafted. Resumes use generic templates that ATS systems filter out instantly.</p>
+        <span class="problem-tag">12M annual grads</span>
+      </div>
+      <div class="problem-cell">
+        <span class="problem-num">03 / 05</span>
+        <h3>The Visibility Problem — Job Seekers</h3>
+        <p>Active job seekers apply to hundreds of jobs with the same resume, lost in the application pile. They don't know which skills to emphasize or how to build a LinkedIn presence that attracts recruiters.</p>
+        <span class="problem-tag">91% profiles incomplete</span>
+      </div>
+      <div class="problem-cell">
+        <span class="problem-num">04 / 05</span>
+        <h3>The Monetization Maze — Creators</h3>
+        <p>Content creators build audiences but struggle to translate followers into career capital. Their brand is scattered across platforms without a coherent identity thread.</p>
+        <span class="problem-tag">Growing segment</span>
+      </div>
+      <div class="problem-cell" style="grid-column: span 2;">
+        <span class="problem-num">05 / 05</span>
+        <h3>The Stagnation Problem — Personal Brands</h3>
+        <p>Even established personal brands plateau. They lose track of growth metrics, fail to evolve their content strategy, or struggle to move into new verticals. They need systems — not just tools. The absence of a structured OS for personal brand management leads to burnout and irrelevance.</p>
+        <span class="problem-tag">No brand OS exists</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FRAMEWORK -->
+<section id="framework">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="eyebrow">Our Methodology</div>
+      <h2>The <span>B.R.A.N.D</span> Framework™</h2>
+      <p>A proprietary five-stage methodology for building a career-ready personal brand. Each stage is AI-powered, structured around clear inputs and measurable outputs.</p>
+    </div>
+
+    <div class="framework-steps reveal">
+      <div class="fw-step">
+        <div class="fw-step-circle">B</div>
+        <div class="fw-step-letter">Benchmark</div>
+        <h3>Audit Your Brand</h3>
+        <p>Audit your current brand health — skills, digital presence, and gaps vs. industry standards. Know exactly where you stand.</p>
+      </div>
+      <div class="fw-step">
+        <div class="fw-step-circle">R</div>
+        <div class="fw-step-letter">Reveal</div>
+        <h3>Find Your Edge</h3>
+        <p>Uncover your unique strengths, career direction, and authentic brand voice through deep AI analysis.</p>
+      </div>
+      <div class="fw-step">
+        <div class="fw-step-circle">A</div>
+        <div class="fw-step-letter">Align</div>
+        <h3>Find Your Niche</h3>
+        <p>Align your skills, interests, and goals into a coherent career positioning statement that sets you apart.</p>
+      </div>
+      <div class="fw-step">
+        <div class="fw-step-circle">N</div>
+        <div class="fw-step-letter">Narrate</div>
+        <h3>Tell Your Story</h3>
+        <p>Craft your brand story — resume, LinkedIn headline, about section, content pillars, and portfolio.</p>
+      </div>
+      <div class="fw-step">
+        <div class="fw-step-circle">D</div>
+        <div class="fw-step-letter">Develop</div>
+        <h3>Execute &amp; Grow</h3>
+        <p>Execute the growth roadmap: 30-day content plan, network expansion, and measurable weekly milestones.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<section id="modules">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="eyebrow">Product Modules</div>
+      <h2>Six engines. <span>One complete system.</span></h2>
+      <p>Each module is an AI-powered engine that takes your raw inputs and outputs professional-grade brand assets. Together, they compound.</p>
+    </div>
+
+    <div class="modules-grid">
+      <div class="module-card reveal">
+        <div class="module-num">Module 01</div>
+        <div class="module-icon i1">🧠</div>
+        <h3>Career Identity Engine</h3>
+        <p>Processes your skills, interests, education, and goals to generate a professional archetype, positioning statement, and unique value proposition.</p>
+        <div class="module-outputs">
+          <span class="module-output">Career Positioning</span>
+          <span class="module-output">Brand Statement</span>
+          <span class="module-output">Identity Card</span>
+        </div>
+      </div>
+      <div class="module-card reveal">
+        <div class="module-num">Module 02</div>
+        <div class="module-icon i2">📄</div>
+        <h3>Resume Analyzer &amp; Builder</h3>
+        <p>Parses your resume, scores it against ATS systems and target job descriptions, rewrites bullet points, and identifies missing keywords.</p>
+        <div class="module-outputs">
+          <span class="module-output">ATS Score</span>
+          <span class="module-output">Bullet Rewrites</span>
+          <span class="module-output">Keyword Map</span>
+        </div>
+      </div>
+      <div class="module-card reveal">
+        <div class="module-num">Module 03</div>
+        <div class="module-icon i3">🔗</div>
+        <h3>LinkedIn Optimizer</h3>
+        <p>Analyzes your current profile and generates a complete rewrite — 5 headline variants, a compelling About section, and section-by-section strategy.</p>
+        <div class="module-outputs">
+          <span class="module-output">5 Headlines</span>
+          <span class="module-output">About Section</span>
+          <span class="module-output">SSI Tips</span>
+        </div>
+      </div>
+      <div class="module-card reveal">
+        <div class="module-num">Module 04</div>
+        <div class="module-icon i4">🗂️</div>
+        <h3>Portfolio Builder</h3>
+        <p>Recommends 5–8 specific projects to build or document, explains why they matter to recruiters, and generates project descriptions in PAOI format.</p>
+        <div class="module-outputs">
+          <span class="module-output">Project Recs</span>
+          <span class="module-output">Structure Plan</span>
+          <span class="module-output">Website Plan</span>
+        </div>
+      </div>
+      <div class="module-card reveal">
+        <div class="module-num">Module 05</div>
+        <div class="module-icon i5">📣</div>
+        <h3>Content Strategy Engine</h3>
+        <p>Defines 3 content pillars and generates a 30-day content calendar with specific post ideas, hooks, and a 90-day brand story arc.</p>
+        <div class="module-outputs">
+          <span class="module-output">3 Pillars</span>
+          <span class="module-output">30-Day Calendar</span>
+          <span class="module-output">Post Templates</span>
+        </div>
+      </div>
+      <div class="module-card reveal">
+        <div class="module-num">Module 06</div>
+        <div class="module-icon i6">🗺️</div>
+        <h3>Growth Roadmap Engine</h3>
+        <p>Synthesizes all module outputs into a time-bound 30/90/365-day growth plan with weekly check-ins and a recalibrating accountability system.</p>
+        <div class="module-outputs">
+          <span class="module-output">30-Day Sprint</span>
+          <span class="module-output">90-Day Map</span>
+          <span class="module-output">1-Year Strategy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section id="compare">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="eyebrow">Competitive Landscape</div>
+      <h2>Why BRANDOS AI <span>wins</span></h2>
+      <p>No single platform addresses the full personal branding lifecycle. We occupy the strategic intelligence layer above resume tools and below expensive human consultants.</p>
+    </div>
+
+    <div class="compare-table reveal">
+      <div class="compare-head">
+        <div class="compare-col-head">Feature</div>
+        <div class="compare-col-head">LinkedIn Premium</div>
+        <div class="compare-col-head">Rezi / Resume Worded</div>
+        <div class="compare-col-head">Teal / Kickresume</div>
+        <div class="compare-col-head highlight">BRANDOS AI™</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Career Identity System</div>
+        <div class="compare-cell"><span class="cross">✕</span></div>
+        <div class="compare-cell"><span class="cross">✕</span></div>
+        <div class="compare-cell"><span class="cross">✕</span></div>
+        <div class="compare-cell highlight"><span class="check">✓</span></div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">AI Resume Builder + ATS Score</div>
+        <div class="compare-cell"><span class="partial">~</span></div>
+        <div class="compare-cell"><span class="check">✓</span></div>
+        <div class="compare-cell"><span class="check">✓</span></div>
+        <div class="compare-cell highlight"><span class="check">✓</span></div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">LinkedIn Profile Optimizer</div>
+        <div class="compare-cell"><span class="partial">~</span></div>
+        <div class="compare-cell"><span class="partial">~</span></div>
+        <div class="compare-cell"><span class="cross">✕</span></div>
+        <div class="compare-cell highlight"><span class="check">✓</span></div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Content Strategy System</div>
+        <div class="compare-cell"><span class="cross">✕</span></div>
+        <div class="compare-cell"><span class="cross">✕</span></div>
+        <div class="compare-cell"><span class="cross">✕</span></div>
+        <div class="compare-cell highlight"><span class="check">✓</span></div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Portfolio Recommendations</div>
+        <div class="compare-cell"><span class="cross">✕</span></div>
+        <div class="compare-cell"><span class="cross">✕</span></div>
+        <div class="compare-cell"><span class="partial">~</span></div>
+        <div class="compare-cell highlight"><span class="check">✓</span></div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Growth Roadmap (30/90/365 days)</div>
+        <div class="compare-cell"><span class="cross">✕</span></div>
+        <div class="compare-cell"><span class="cross">✕</span></div>
+        <div class="compare-cell"><span class="cross">✕</span></div>
+        <div class="compare-cell highlight"><span class="check">✓</span></div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Student / Fresher Focused</div>
+        <div class="compare-cell"><span class="cross">✕</span></div>
+        <div class="compare-cell"><span class="partial">~</span></div>
+        <div class="compare-cell"><span class="partial">~</span></div>
+        <div class="compare-cell highlight"><span class="check">✓</span></div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Starting Price</div>
+        <div class="compare-cell">$39.99/mo</div>
+        <div class="compare-cell">Free – $29/mo</div>
+        <div class="compare-cell">Free – $29/mo</div>
+        <div class="compare-cell highlight" style="color: var(--gold); font-weight: 600;">Free + ₹499/mo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAS -->
+<section id="personas">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="eyebrow">Who It's For</div>
+      <h2>Built for every <span>early-career professional</span></h2>
+      <p>Whether you're a final-year student, fresh graduate, creator, or career-switcher — BRANDOS AI has a module built specifically for your challenge.</p>
+    </div>
+
+    <div class="personas-scroll reveal">
+      <div class="persona-card">
+        <div class="persona-avatar pa1">RK</div>
+        <h3>Rohan Kapoor</h3>
+        <div class="persona-role">ENGINEERING STUDENT</div>
+        <div class="persona-pain"><strong>Pain:</strong> Resume looks identical to 500 other CSE students. No LinkedIn presence.<br><br><strong>Outcome:</strong> ATS-optimized resume, differentiated brand, 30-day growth plan.</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-avatar pa2">PS</div>
+        <h3>Priya Sharma</h3>
+        <div class="persona-role">MBA MARKETING</div>
+        <div class="persona-pain"><strong>Pain:</strong> Academic projects don't feel "real world." Struggles to quantify marketing impact.<br><br><strong>Outcome:</strong> Content pillars, LinkedIn strategy, resume rewrites with metrics.</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-avatar pa3">AS</div>
+        <h3>Arjun Singh</h3>
+        <div class="persona-role">DATA SCIENCE STUDENT</div>
+        <div class="persona-pain"><strong>Pain:</strong> Technical skills are strong but communication is weak. Kaggle doesn't translate to jobs.<br><br><strong>Outcome:</strong> Business-impact project descriptions, GitHub portfolio strategy.</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-avatar pa4">NK</div>
+        <h3>Nisha Kohli</h3>
+        <div class="persona-role">CONTENT CREATOR</div>
+        <div class="persona-pain"><strong>Pain:</strong> 50K followers but no professional brand. No LinkedIn presence. No formal positioning.<br><br><strong>Outcome:</strong> Media kit, LinkedIn launch, cross-platform content system.</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-avatar pa5">VM</div>
+        <h3>Vikram Malhotra</h3>
+        <div class="persona-role">CAREER SWITCHER</div>
+        <div class="persona-pain"><strong>Pain:</strong> 3 years ops experience but resume doesn't "look" like a PM resume.<br><br><strong>Outcome:</strong> Pivot narrative, PM-positioned resume, portfolio project recs.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="cases">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="eyebrow">Real Outputs</div>
+      <h2>What BRANDOS AI <span>actually produces</span></h2>
+      <p>Not vague recommendations. Actual outputs — brand statements, headlines, resume rewrites, content calendars, and growth plans tailored to your specific profile.</p>
+    </div>
+
+    <div class="cases-tabs reveal">
+      <button class="case-tab active" onclick="showCase(0)">Engineering Student</button>
+      <button class="case-tab" onclick="showCase(1)">Marketing Student</button>
+      <button class="case-tab" onclick="showCase(2)">AI Enthusiast</button>
+    </div>
+
+    <div class="case-content active" id="case-0">
+      <div class="case-panel">
+        <div class="case-panel-label">Brand Identity Output</div>
+        <h4>Rohan Kapoor — CSE Final Year, IIT Indore</h4>
+        <div class="case-stat-row">
+          <div class="case-stat"><div class="case-stat-num">86</div><div class="case-stat-lbl">ATS Score</div></div>
+          <div class="case-stat"><div class="case-stat-num">2.8K</div><div class="case-stat-lbl">Profile Views / mo</div></div>
+          <div class="case-stat"><div class="case-stat-num">3</div><div class="case-stat-lbl">Interview Calls</div></div>
+        </div>
+        <div class="case-output">"The engineer who thinks like a founder — I build products that bridge technical complexity and real user needs. My superpower is translating 'how it works' into 'why it matters.'"</div>
+        <div class="case-output" style="border-color: var(--teal);">"Engineering Student @ IIT Indore | Building at the intersection of tech & product | APM 2025 aspirant | SaaS · B2C · FinTech"</div>
+      </div>
+      <div class="case-panel">
+        <div class="case-panel-label">Growth Plan Output</div>
+        <h4>30-Day Sprint Plan</h4>
+        <ul class="case-list">
+          <li>Week 1: Optimize LinkedIn profile + update resume with STAR bullets</li>
+          <li>Week 2: Post first product teardown (LinkedIn carousel)</li>
+          <li>Week 3: Connect with 20 PMs + engage on their content daily</li>
+          <li>Week 4: Write full case study on best project → publish as article</li>
+          <li>Content Pillars: Product teardowns · APM journey · Engineering projects</li>
+          <li>Target: 500+ profile views, 100+ new connections, 3 posts published</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="case-content" id="case-1">
+      <div class="case-panel">
+        <div class="case-panel-label">Brand Identity Output</div>
+        <h4>Priya Sharma — MBA Marketing, NMIMS</h4>
+        <div class="case-stat-row">
+          <div class="case-stat"><div class="case-stat-num">82</div><div class="case-stat-lbl">ATS Score</div></div>
+          <div class="case-stat"><div class="case-stat-num">1.4K</div><div class="case-stat-lbl">Profile Views / mo</div></div>
+          <div class="case-stat"><div class="case-stat-num">D2C</div><div class="case-stat-lbl">Target Niche</div></div>
+        </div>
+        <div class="case-output">"I turn brand confusion into brand conviction. I'm a marketer obsessed with consumer psychology, storytelling, and metrics that actually move businesses forward."</div>
+        <div class="case-output" style="border-color: var(--teal);">"MBA Marketing | Brand Strategy × Digital Marketing | Helping D2C brands tell stories that sell | Consumer Psychology enthusiast"</div>
+      </div>
+      <div class="case-panel">
+        <div class="case-panel-label">Content Strategy Output</div>
+        <h4>Content Pillars + 30-Day Plan</h4>
+        <ul class="case-list">
+          <li>Pillar 1: Brand campaign breakdowns — why ads work</li>
+          <li>Pillar 2: D2C brand growth stories and analysis</li>
+          <li>Pillar 3: MBA learnings + real marketing experiments</li>
+          <li>Week 1: Set up profile → post first brand teardown (Mamaearth)</li>
+          <li>Week 2–3: Document 2 academic projects as LinkedIn case studies</li>
+          <li>Week 4: Publish mock D2C brand launch strategy article</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="case-content" id="case-2">
+      <div class="case-panel">
+        <div class="case-panel-label">Brand Identity Output</div>
+        <h4>Arjun Singh — M.Sc. Data Science, BITS</h4>
+        <div class="case-stat-row">
+          <div class="case-stat"><div class="case-stat-num">89</div><div class="case-stat-lbl">ATS Score</div></div>
+          <div class="case-stat"><div class="case-stat-num">AI/ML</div><div class="case-stat-lbl">Positioning</div></div>
+          <div class="case-stat"><div class="case-stat-num">5</div><div class="case-stat-lbl">Project Plans</div></div>
+        </div>
+        <div class="case-output">"I make machines understand humans — and help humans understand machines. I build AI systems that solve real-world problems, then translate complexity into insights anyone can act on."</div>
+        <div class="case-output" style="border-color: var(--teal);">"Data Scientist in the making | ML · NLP · Computer Vision | Turning models into business impact | Open to AI/ML opportunities 2025"</div>
+      </div>
+      <div class="case-panel">
+        <div class="case-panel-label">Portfolio + Content Plan</div>
+        <h4>Build Roadmap</h4>
+        <ul class="case-list">
+          <li>Build 2 end-to-end ML projects with GitHub + Streamlit demo</li>
+          <li>Create public Kaggle profile with documented, narrative notebooks</li>
+          <li>Write "AI explained for non-technical readers" post series</li>
+          <li>Pillar 1: ML model explainers in plain English</li>
+          <li>Pillar 2: Transparent project build logs (learn in public)</li>
+          <li>Pillar 3: AI news commentary from a practitioner lens</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GTM & ROADMAP -->
+<section id="gtm">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="eyebrow">Go-To-Market</div>
+      <h2>How we're <span>growing</span></h2>
+    </div>
+
+    <div class="gtm-grid">
+      <div class="reveal">
+        <h3 style="font-size:22px; margin-bottom:32px; color:var(--text);">Product Roadmap</h3>
+        <div class="roadmap-line">
+          <div class="roadmap-item">
+            <div class="roadmap-node gold"></div>
+            <div class="roadmap-phase">Q1–Q2 2025 · Now</div>
+            <h4>Beta Launch</h4>
+            <p style="font-size:14px; color:var(--text-2);">Core 6 modules, web app, 200 beta users, free access, feedback collection, success story generation.</p>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-node teal"></div>
+            <div class="roadmap-phase">Q3 2025</div>
+            <h4>Public Launch + Mobile</h4>
+            <p style="font-size:14px; color:var(--text-2);">Product Hunt launch, LinkedIn integration, mobile app, community Discord, 1,000 users.</p>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-node blue"></div>
+            <div class="roadmap-phase">Q4 2025 – Q2 2026</div>
+            <h4>Growth + B2B</h4>
+            <p style="font-size:14px; color:var(--text-2);">Campus partnerships, university licensing, 10,000 users, ₹1L+ MRR.</p>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-node"></div>
+            <div class="roadmap-phase">2026+</div>
+            <h4>Scale + API</h4>
+            <p style="font-size:14px; color:var(--text-2);">White-label platform, API for hiring portals, 100K users, global expansion.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <h3 style="font-size:22px; margin-bottom:32px; color:var(--text);">Growth Channels</h3>
+        <div class="channels-list">
+          <div class="channel-item">
+            <div class="channel-icon" style="background:rgba(79,110,247,0.1);">🔵</div>
+            <div class="channel-text">
+              <h4>Founder-Led LinkedIn Content</h4>
+              <p>Product teardowns, personal branding tips, behind-the-scenes build</p>
+            </div>
+            <div class="channel-badge">Primary</div>
+          </div>
+          <div class="channel-item">
+            <div class="channel-icon" style="background:rgba(232,197,106,0.1);">🎓</div>
+            <div class="channel-text">
+              <h4>Campus Ambassador Program</h4>
+              <p>50 colleges in Year 1, lifetime Pro for top ambassadors</p>
+            </div>
+            <div class="channel-badge">High ROI</div>
+          </div>
+          <div class="channel-item">
+            <div class="channel-icon" style="background:rgba(45,212,160,0.1);">🤝</div>
+            <div class="channel-text">
+              <h4>University Partnerships</h4>
+              <p>Placement cells, bootcamps, coding schools, IIT/NIT network</p>
+            </div>
+            <div class="channel-badge">B2B</div>
+          </div>
+          <div class="channel-item">
+            <div class="channel-icon" style="background:rgba(240,97,74,0.1);">🔄</div>
+            <div class="channel-text">
+              <h4>Product-Led Growth Loop</h4>
+              <p>Users post content → mention BRANDOS → others sign up</p>
+            </div>
+            <div class="channel-badge">Viral</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KPI DASHBOARD -->
+<section id="kpis">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="eyebrow">Metrics That Matter</div>
+      <h2>Track every dimension of <span>your brand growth</span></h2>
+      <p>BRANDOS AI's built-in dashboard tracks your Brand Health Score, LinkedIn growth, resume performance, and content reach — all in one place.</p>
+    </div>
+
+    <div class="kpi-dashboard reveal">
+      <div class="kpi-dash-header">
+        <div class="kpi-dash-title">Brand Dashboard — Rohan Kapoor · Week 4</div>
+        <div class="kpi-dash-period">30-DAY REPORT</div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-card-label">Brand Health Score</div>
+          <div class="kpi-card-num gold">92</div>
+          <div class="kpi-change up">↑ 51 pts from Week 1</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card-label">LinkedIn Profile Views</div>
+          <div class="kpi-card-num blue">2,840</div>
+          <div class="kpi-change up">↑ 1,477% vs baseline</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card-label">New Connections</div>
+          <div class="kpi-card-num teal">387</div>
+          <div class="kpi-change up">↑ 94 this week</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card-label">ATS Resume Score</div>
+          <div class="kpi-card-num gold">86</div>
+          <div class="kpi-change up">↑ From 54 on Day 1</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card-label">Post Impressions</div>
+          <div class="kpi-card-num blue">12.4K</div>
+          <div class="kpi-change up">↑ First viral post</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card-label">Portfolio Visits</div>
+          <div class="kpi-card-num teal">4,720</div>
+          <div class="kpi-change up">↑ 200% MoM</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card-label">Interview Calls</div>
+          <div class="kpi-card-num coral">3</div>
+          <div class="kpi-change up">↑ This month</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card-label">Content Streak</div>
+          <div class="kpi-card-num gold">28</div>
+          <div class="kpi-change neutral">Days consistent</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="tech">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="eyebrow">AI Architecture</div>
+      <h2>Powered by the world's <span>best AI models</span></h2>
+      <p>BRANDOS AI orchestrates multiple state-of-the-art AI tools — matching each model's strength to the right task. The result is output no single model could produce alone.</p>
+    </div>
+
+    <div class="tech-grid">
+      <div class="tech-card reveal">
+        <div class="tech-logo tl1">CL</div>
+        <h3>Claude (Anthropic)</h3>
+        <div class="tech-role">BRAND NARRATIVES · LONG-FORM</div>
+        <p>Superior long-form reasoning for brand stories, About sections, and resume rewrites. Best-in-class for nuanced tone matching and contextual depth.</p>
+      </div>
+      <div class="tech-card reveal">
+        <div class="tech-logo tl2">GP</div>
+        <h3>ChatGPT / GPT-4o</h3>
+        <div class="tech-role">RAPID IDEATION · HEADLINES</div>
+        <p>Fast iteration for headline variants, STAR bullet generation, and short-form content hooks. Excellent instruction-following for structured outputs.</p>
+      </div>
+      <div class="tech-card reveal">
+        <div class="tech-logo tl3">G</div>
+        <h3>Google Gemini</h3>
+        <div class="tech-role">MULTIMODAL · VISUAL ANALYSIS</div>
+        <p>Analyzes LinkedIn profile screenshots for visual presentation feedback — photo quality, banner design, and overall profile aesthetics.</p>
+      </div>
+      <div class="tech-card reveal">
+        <div class="tech-logo tl4">Px</div>
+        <h3>Perplexity AI</h3>
+        <div class="tech-role">MARKET RESEARCH · REAL-TIME</div>
+        <p>Real-time job market trends, in-demand skills, salary benchmarks, and competitor brand analysis. Surfaces current hiring intelligence.</p>
+      </div>
+      <div class="tech-card reveal">
+        <div class="tech-logo tl5">CA</div>
+        <h3>Canva AI</h3>
+        <div class="tech-role">VISUAL BRAND ASSETS</div>
+        <p>LinkedIn banners, portfolio covers, and carousel designs aligned to the user's brand palette. Magic Studio for non-technical users.</p>
+      </div>
+      <div class="tech-card reveal">
+        <div class="tech-logo tl6">No</div>
+        <h3>Notion AI</h3>
+        <div class="tech-role">ROADMAP · DOCUMENTATION</div>
+        <p>BRANDOS exports growth roadmaps directly to Notion workspaces — auto-organized tasks, content drafts, and progress tracker.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SWOT -->
+<section id="swot">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="eyebrow">Strategic Analysis</div>
+      <h2>SWOT Analysis</h2>
+      <p>A transparent assessment of BRANDOS AI's competitive position, market opportunities, and the risks we're actively mitigating.</p>
+    </div>
+
+    <div class="swot-grid">
+      <div class="swot-card reveal">
+        <div class="swot-head">
+          <div class="swot-letter sl-s">S</div>
+          <h3>Strengths</h3>
+        </div>
+        <ul class="swot-list">
+          <li>First platform offering complete personal brand OS (end-to-end)</li>
+          <li>Proprietary B.R.A.N.D Framework™ creates moat</li>
+          <li>AI-powered, scalable, low marginal cost per user</li>
+          <li>Freemium model enables viral growth loops</li>
+          <li>Strong product-market fit signal from validated pain points</li>
+          <li>Built for a large and growing underserved market</li>
+        </ul>
+      </div>
+      <div class="swot-card reveal">
+        <div class="swot-head">
+          <div class="swot-letter sl-w">W</div>
+          <h3>Weaknesses</h3>
+        </div>
+        <ul class="swot-list">
+          <li>New brand — zero existing user trust or social proof</li>
+          <li>AI output quality requires continuous fine-tuning</li>
+          <li>LinkedIn API limitations restrict deep integration</li>
+          <li>Single founder resource constraints in early stage</li>
+          <li>User onboarding complexity may create drop-off</li>
+        </ul>
+      </div>
+      <div class="swot-card reveal">
+        <div class="swot-head">
+          <div class="swot-letter sl-o">O</div>
+          <h3>Opportunities</h3>
+        </div>
+        <ul class="swot-list">
+          <li>India's 50M+ college students — massively underserved</li>
+          <li>B2B channel: university and bootcamp licensing</li>
+          <li>Creator economy growth → new personal brand use cases</li>
+          <li>Global expansion: Southeast Asia, MENA, LatAm</li>
+          <li>Integration with hiring platforms (Internshala, Unstop)</li>
+          <li>AI resume + LinkedIn SEO becoming table stakes for jobs</li>
+        </ul>
+      </div>
+      <div class="swot-card reveal">
+        <div class="swot-head">
+          <div class="swot-letter sl-t">T</div>
+          <h3>Threats</h3>
+        </div>
+        <ul class="swot-list">
+          <li>LinkedIn launching native AI brand-building features</li>
+          <li>Users using ChatGPT/Claude directly for free</li>
+          <li>Large players (Teal, Resume.io) expanding into brand strategy</li>
+          <li>User data privacy concerns with AI-processed career data</li>
+          <li>Rapidly changing job market invalidating advice</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-header reveal" style="margin: 0 auto 0; text-align:center; max-width:500px;">
+      <div class="eyebrow" style="justify-content:center;">Pricing</div>
+      <h2>Start free. Scale when <span>ready.</span></h2>
+      <p>Designed to be accessible for every student. Upgrade when you're serious about your brand.</p>
+    </div>
+
+    <div class="pricing-grid reveal">
+      <div class="pricing-card">
+        <div class="pricing-tier">Free Forever</div>
+        <div class="pricing-price">₹0<span>/mo</span></div>
+        <div class="pricing-period">Always free, no credit card needed</div>
+        <ul class="pricing-features">
+          <li>3 module uses per month</li>
+          <li>Career Identity Engine</li>
+          <li>Resume Analyzer (1 scan)</li>
+          <li class="na">LinkedIn Optimizer</li>
+          <li class="na">Growth Roadmap</li>
+          <li class="na">Content Calendar</li>
+          <li class="na">KPI Dashboard</li>
+        </ul>
+        <a href="#cta" class="pricing-btn outline">Get Started Free</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <div class="pricing-tier">Pro</div>
+        <div class="pricing-price">₹499<span>/mo</span></div>
+        <div class="pricing-period">Billed monthly · Cancel anytime</div>
+        <ul class="pricing-features">
+          <li>Unlimited module access</li>
+          <li>All 6 AI modules</li>
+          <li>Resume Analyzer + Builder</li>
+          <li>LinkedIn Optimizer</li>
+          <li>Growth Roadmap (30/90/365)</li>
+          <li>30-Day Content Calendar</li>
+          <li>KPI Dashboard + Tracking</li>
+        </ul>
+        <a href="#cta" class="pricing-btn solid">Start Pro Free Trial</a>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pricing-tier">Institution</div>
+        <div class="pricing-price">Custom</div>
+        <div class="pricing-period">Per university / bootcamp / cohort</div>
+        <ul class="pricing-features">
+          <li>Everything in Pro</li>
+          <li>Bulk user licenses</li>
+          <li>Custom branding</li>
+          <li>Admin dashboard</li>
+          <li>Placement analytics</li>
+          <li>Dedicated onboarding</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#creator" class="pricing-btn outline">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREATOR -->
+<section id="creator">
+  <div class="container">
+    <div class="creator-inner">
+      <div class="creator-card reveal">
+        <div class="creator-avatar">PM</div>
+        <div class="creator-name">Prateek Maheshwari</div>
+        <div class="creator-role">Founder · Creator · Student</div>
+        <div class="creator-tags">
+          <span class="creator-tag">Product Strategy</span>
+          <span class="creator-tag">AI Tools</span>
+          <span class="creator-tag">Brand Architecture</span>
+          <span class="creator-tag">Go-to-Market</span>
+          <span class="creator-tag">Content Marketing</span>
+        </div>
+        <div class="creator-links">
+          <a href="https://www.linkedin.com/in/prateek-maheshwari-7p/" class="creator-link primary">LinkedIn ↗</a>
+          <a href="https://github.com/prateek-maheshwari/brandos-ai"
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          class="creator-link">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="creator-content reveal">
+        <div class="eyebrow">The Founder</div>
+        <h2>Built by someone who needed it</h2>
+        <p>I spent months applying to internships with a resume that looked like everyone else's. My LinkedIn was generic. I had projects I was proud of, but no idea how to make recruiters notice them.</p>
+        <p>BRANDOS AI is the product I wish had existed when I was figuring all of this out. It's built on real frustration, validated by real users, and designed by someone who is still in the exact market it serves.</p>
+        <div class="creator-quote">"The world doesn't need more talented people who are invisible. It needs a system that makes them impossible to ignore."</div>
+        <p>BRANDOS AI™ is that system. This product concept represents not just a business idea — but a commitment to making professional branding accessible to every student, regardless of their background, network, or institution.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="container">
+    <div class="cta-inner">
+      <div class="eyebrow" style="justify-content:center;">Get Started</div>
+      <h2>Your brand is waiting.<br><span>Build it today.</span></h2>
+      <p>Join the waitlist. Be among the first to access BRANDOS AI and transform how the world sees you professionally.</p>
+      <div class="cta-actions">
+        <a href="mailto:prateek@brandosai.com" class="btn-primary">
+          Join the Waitlist
+          <span class="btn-arrow">→</span>
+        </a>
+        <a href="https://github.com/prateek-maheshwari/brandos-ai" class="btn-secondary">
+          View on GitHub ↗
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>BRANDOS AI™</h3>
+      <p>AI-Powered Career Branding Operating System<br>Built by Prateek Maheshwari · 2025</p>
+    </div>
+    <div class="footer-links">
+      <a href="#problems">Problem</a>
+      <a href="#framework">Framework</a>
+      <a href="#modules">Modules</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://github.com/prateek-maheshwari/brandos-ai">GitHub</a>
+      <a href="mailto:prateek@brandosai.com">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 <span>BRANDOS AI™</span> · Created by <span>Prateek Maheshwari</span> · All rights reserved.</p>
+    <p>The B.R.A.N.D Framework™ is a proprietary methodology. Product concept for portfolio purposes.</p>
+  </div>
+</footer>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
+function animateRing() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animateRing); }
+animateRing();
+
+// Navbar scroll
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); });
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 60);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+reveals.forEach(el => observer.observe(el));
+
+// Case study tabs
+function showCase(idx) {
+  document.querySelectorAll('.case-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+  document.querySelectorAll('.case-content').forEach((c, i) => c.classList.toggle('active', i === idx));
+}
+
+// Smooth anchor scrolling
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+</script>
+</body>
+</html>
